@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ilam Leaf | Single-estate tea from eastern Nepal</title>
+  <meta name="description" content="Hand-picked tea from small gardens in Ilam, delivered fresh to your door.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Design tokens ---------- */
+    :root {
+      --leaf:   #1f3b2d;   /* deep tea green */
+      --leaf-2: #2f5a44;   /* lighter green */
+      --mist:   #e8eee9;   /* pale grey-green */
+      --paper:  #f8faf7;   /* page background */
+      --ink:    #16211b;   /* body text */
+      --muted:  #55665b;   /* secondary text */
+      --gold:   #e2a72e;   /* accent: first-flush gold */
+
+      --font-head: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
+      --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+      --fs-body: 1.125rem;
+      --fs-small: 0.95rem;
+      --fs-h3: 1.35rem;
+      --fs-h2: clamp(1.8rem, 4vw, 2.6rem);
+      --fs-h1: clamp(2.4rem, 6.5vw, 4.5rem);
+
+      --radius: 14px;
+      --gap: 1.5rem;
+      --max: 1120px;
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    img, svg { max-width: 100%; display: block; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; letter-spacing: -0.02em; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    .wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: 1.25rem; }
+    .section { padding-block: 5rem; }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 0.9rem 1.6rem;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--leaf);
+      border: 2px solid var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover { background: transparent; color: var(--gold); }
+    .btn-ghost { background: transparent; color: var(--paper); border-color: rgba(248, 250, 247, 0.5); }
+    .btn-ghost:hover { background: var(--paper); color: var(--leaf); border-color: var(--paper); }
+
+    /* ---------- Navigation (sticky) ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--leaf);
+      color: var(--paper);
+    }
+    .nav .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem 1.5rem;
+      padding-block: 0.9rem;
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.35rem;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--gold); }
+    .nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; list-style: none; }
+    .nav ul a {
+      font-family: var(--font-head);
+      font-weight: 500;
+      font-size: var(--fs-small);
+      text-decoration: none;
+      padding-block: 0.25rem;
+      border-bottom: 2px solid transparent;
+    }
+    .nav ul a:hover { border-bottom-color: var(--gold); }
+
+    /* ---------- Hero ---------- */
+    .hero { background: var(--leaf); color: var(--paper); padding-block: 4.5rem 5.5rem; }
+    .hero .wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero h1 { font-size: var(--fs-h1); font-weight: 800; margin-bottom: 1.25rem; }
+    .hero p { max-width: 34rem; color: #cfdcd3; margin-bottom: 2rem; }
+    .hero .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    /* Terraced hillside drawn with CSS only */
+    .terraces {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: linear-gradient(#f3d98b 0%, #e9eee0 55%);
+    }
+    .terraces .sun {
+      position: absolute; top: 12%; right: 14%;
+      width: 22%; aspect-ratio: 1; border-radius: 50%;
+      background: var(--gold);
+    }
+    .terraces .band {
+      position: absolute; left: -20%; width: 140%; height: 34%;
+      border-radius: 50% 50% 0 0 / 28% 28% 0 0;
+    }
+    .terraces .b1 { bottom: 46%; background: #6f9a82; }
+    .terraces .b2 { bottom: 32%; background: var(--leaf-2); }
+    .terraces .b3 { bottom: 18%; background: #234633; }
+    .terraces .b4 { bottom: 0;   background: var(--leaf); height: 30%; }
+    .terraces .tag {
+      position: absolute; left: 1rem; bottom: 1rem;
+      font-family: var(--font-head); font-size: var(--fs-small); font-weight: 500;
+      color: var(--paper);
+    }
+
+    /* ---------- Shared section heading ---------- */
+    .section-head { max-width: 38rem; margin-bottom: 3rem; }
+    .section-head h2 { font-size: var(--fs-h2); font-weight: 700; color: var(--leaf); margin-bottom: 0.75rem; }
+    .section-head p { color: var(--muted); }
+
+    /* ---------- Features ---------- */
+    .features { background: var(--paper); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
+    .feature { border-top: 4px solid var(--gold); padding-top: 1.25rem; }
+    .feature h3 { font-size: var(--fs-h3); font-weight: 700; color: var(--leaf); margin-bottom: 0.5rem; }
+    .feature p { color: var(--muted); }
+
+    /* ---------- Teas ---------- */
+    .teas { background: var(--mist); }
+    .tea {
+      background: var(--paper);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .tea .swatch { height: 0.75rem; border-radius: 999px; }
+    .tea h3 { font-size: var(--fs-h3); font-weight: 700; color: var(--leaf); }
+    .tea p { color: var(--muted); flex: 1; }
+    .tea .price { font-family: var(--font-head); font-weight: 700; color: var(--leaf); }
+    .s-green { background: #8fb59b; }
+    .s-gold  { background: var(--gold); }
+    .s-dark  { background: #7a3f21; }
+
+    /* ---------- Testimonials ---------- */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap); }
+    .quote { background: var(--leaf); color: var(--paper); border-radius: var(--radius); padding: 2rem; }
+    .quote p { margin-bottom: 1.25rem; }
+    .quote cite { font-family: var(--font-head); font-style: normal; font-weight: 500; font-size: var(--fs-small); color: var(--gold); }
+
+    /* ---------- Call to action band ---------- */
+    .cta { background: var(--gold); color: var(--leaf); text-align: center; padding-block: 4rem; }
+    .cta h2 { font-size: var(--fs-h2); margin-bottom: 0.75rem; }
+    .cta p { margin: 0 auto 1.75rem; max-width: 32rem; }
+    .cta .btn { background: var(--leaf); border-color: var(--leaf); color: var(--paper); }
+    .cta .btn:hover { background: transparent; color: var(--leaf); }
+
+    /* ---------- Footer ---------- */
+    .footer { background: var(--ink); color: #b9c7bd; padding-block: 3rem 2rem; font-size: var(--fs-small); }
+    .footer .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+    .footer h3 { font-size: 1rem; color: var(--paper); margin-bottom: 0.75rem; }
+    .footer ul { list-style: none; display: grid; gap: 0.4rem; }
+    .footer a { text-decoration: none; }
+    .footer a:hover { color: var(--gold); }
+    .footer .legal { border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 1.25rem; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px) {
+      .hero .wrap { grid-template-columns: 1fr; }
+      .terraces { aspect-ratio: 16 / 10; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer .cols { grid-template-columns: 1fr; }
+      .section { padding-block: 3.5rem; }
+    }
+    @media (max-width: 480px) {
+      .nav .wrap { justify-content: center; }
+      .hero { padding-block: 3rem 3.5rem; }
+      .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="logo" href="#top">Ilam<span>Leaf</span></a>
+      <nav aria-label="Main">
+        <ul>
+          <li><a href="#why">Why Ilam</a></li>
+          <li><a href="#teas">Our teas</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <h1>Tea picked on the hills of Ilam, in your cup within two weeks.</h1>
+          <p>We buy directly from small family gardens in eastern Nepal and ship each harvest in small, sealed batches, so every cup tastes like the season it was picked.</p>
+          <div class="actions">
+            <a class="btn" href="#teas">Shop this season's teas</a>
+            <a class="btn btn-ghost" href="#why">See how we source</a>
+          </div>
+        </div>
+        <div class="terraces" role="img" aria-label="Illustration of tea terraces on a hillside at sunrise">
+          <div class="sun"></div>
+          <div class="band b1"></div>
+          <div class="band b2"></div>
+          <div class="band b3"></div>
+          <div class="band b4"></div>
+          <span class="tag">Ilam, 1,400 m above sea level</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Why our tea tastes different</h2>
+          <p>Cool nights, morning mist and slow growth give Ilam leaves a delicate flavour that large estates struggle to match.</p>
+        </div>
+        <div class="grid-3">
+          <article class="feature">
+            <h3>Bought from the grower</h3>
+            <p>We pay farmers directly and publish the price per kilo, so the people who pick the leaf keep the larger share.</p>
+          </article>
+          <article class="feature">
+            <h3>Small batches only</h3>
+            <p>Each batch is limited to what one garden produces in a week. When it sells out, we wait for the next harvest.</p>
+          </article>
+          <article class="feature">
+            <h3>Sealed the same day</h3>
+            <p>Leaves are dried, graded and packed within 24 hours of rolling, locking in aroma that fades in open storage.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section teas" id="teas">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>This season's teas</h2>
+          <p>Three teas, each from a different garden. Every pack makes about 50 cups.</p>
+        </div>
+        <div class="grid-3">
+          <article class="tea">
+            <div class="swatch s-green"></div>
+            <h3>Spring Green</h3>
+            <p>Light and grassy with a clean, sweet finish. Brew at 80°C for two minutes.</p>
+            <span class="price">NPR 900 / 100 g</span>
+          </article>
+          <article class="tea">
+            <div class="swatch s-gold"></div>
+            <h3>First Flush Gold</h3>
+            <p>Floral and bright with a hint of muscatel. Our most requested tea, best without milk.</p>
+            <span class="price">NPR 1,200 / 100 g</span>
+          </article>
+          <article class="tea">
+            <div class="swatch s-dark"></div>
+            <h3>Hillside Black</h3>
+            <p>Malty and full-bodied, strong enough to stand up to milk and a pinch of cardamom.</p>
+            <span class="price">NPR 750 / 100 g</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What customers say</h2>
+        </div>
+        <div class="grid-2">
+          <blockquote class="quote">
+            <p>The first flush smells like a flower shop when you open the pack. I have stopped buying supermarket tea completely.</p>
+            <cite>Sunita, Pokhara</cite>
+          </blockquote>
+          <blockquote class="quote">
+            <p>I ordered on Sunday and it arrived Wednesday, still sealed and fresh. The black tea is perfect with milk.</p>
+            <cite>Rohan, Kathmandu</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap">
+        <h2>Get the next harvest first</h2>
+        <p>Join the list and we will email you when each new batch is packed, before it goes on sale.</p>
+        <a class="btn" href="#contact">Join the harvest list</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <h3>IlamLeaf</h3>
+          <p>Single-estate tea from small gardens in eastern Nepal.</p>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="mailto:erpriyanka68@gmail.com">erpriyanka68@gmail.com</a></li>
+            <li><a href="tel:+9779820795680">+977 9820795680</a></li>
+            <li>Ilam Bazaar, Nepal</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Follow us</h3>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="legal">&copy; 2026 IlamLeaf. All rights reserved.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
